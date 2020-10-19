@@ -1,7 +1,7 @@
 const express = require("express");
 const { v4: uuid } = require("uuid");
 const logger = require("../logger");
-const { bookmarks } = require("../store");
+const { bookmarks } = require("../src/store");
 
 const bookmarksRouter = express.Router();
 const bodyParser = express.json();
@@ -16,31 +16,29 @@ bookmarksRouter
 
     if(!title) {
       logger.error(`Title is required`);
-      return res.status(400).send("Invalid data");
+      return res.status(400).send("Bookmark title must be supplied");
     }
 
     if(!url) {
-      logger.error(`URL is required`);
-      return res.status(400).send("Invalid data");
-    }
-
-    if(!rating) {
-      logger.error(`Rating is required`);
-      return res.status(400).send("Invalid data");
+      logger.error(`Invalid url '${url}' supplied.`);
+      return res.status(400).send("URL must be a valid url");
     }
 
     if(!desc) {
-      logger.error(`Description is required`);
-      return res.status(400).send("Invalid data");
+        logger.error(`Description is required.`);
+        return res.status(400).send("Bookmark description must be supplied");
     }
-    
-    // get an id
-    const id = uuid();
+
+    if(!Number.isInteger(rating)) {
+      logger.error(`Invalid rating '${rating}' supplied.`);
+      return res.status(400).send("Rating must be a number between 0 and 5");
+    }
 
     const bookmark = {
-      id,
+      id: uuid(),
       title,
       url,
+      description,
       rating,
     };
 
