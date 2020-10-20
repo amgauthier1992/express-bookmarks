@@ -1,7 +1,7 @@
 const express = require("express");
 const { v4: uuid } = require("uuid");
 const logger = require("../logger");
-const { bookmarks } = require("../src/store");
+const { bookmarks } = require("../store");
 
 const bookmarksRouter = express.Router();
 const bodyParser = express.json();
