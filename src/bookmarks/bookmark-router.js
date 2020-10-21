@@ -43,11 +43,10 @@ bookmarksRouter
     };
 
     bookmarks.push(bookmark);
-    console.log(uuid());
 
-    logger.info(`Bookmark with id ${id} created`);
+    logger.info(`Bookmark with id ${bookmark.id} created`);
 
-    res.status(201).location(`http://localhost:8000/bookmarks/${id}`).json(bookmark); //location is a header that is sent to the client that tells you where to access the particular resource
+    res.status(201).location(`http://localhost:8000/bookmarks/${bookmark.id}`).json(bookmark); //location is a header that is sent to the client that tells you where to access the particular resource
     //json(bookmark) is not a header its part of the body of the response.
 });
 
